@@ -9,3 +9,9 @@ const resetBtn = document.querySelector("#reset-btn");
 const timeContainer = document.querySelector("#time-container");
 const previousTimeContainer = document.querySelector("#previous-time-container");
 const resultsContainer = document.querySelector("#results-container");
+
+stopBtn.hidden = true;
+saveBtn.hidden = true;
+previousTimeContainer.hidden = true;
+pauseBtn.disabled = true;
+nextBtn.disabled = true;

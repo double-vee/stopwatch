@@ -108,6 +108,37 @@ nextBtn.addEventListener('click', () => {
   }
 });
 
+saveBtn.addEventListener('click', () => {
+  let previousResult;
+  let nextResult;
+  let result;
+  
+  if(previousTimeContainer.textContent !== `0:00`) {
+    previousResult = prompt("1st result entry name:");
+    localStorage.setItem(previousResult, previousTimeContainer.textContent);
+
+    nextResult = prompt("2nd result entry name:");
+    localStorage.setItem(nextResult, timeContainer.textContent);
+  } else {
+    result = prompt("Result entry name:");
+    localStorage.setItem(result, timeContainer.textContent);
+  }
+
+  timeContainer.textContent = `0:00`;
+  previousTimeContainer.textContent = `0:00`;
+
+  startBtn.disabled = false;
+  pauseBtn.disabled = true;
+  nextBtn.disabled = true;
+  stopBtn.hidden = true;
+  saveBtn.hidden = true;
+  previousTimeContainer.hidden = true;
+
+  if(!pauseBtn.classList.contains("role-pause")) {
+    pauseBtn.classList.add("role-pause");
+  }
+});
+
 resetBtn.addEventListener('click', () => {
   clearInterval(createTimer);
   timeContainer.textContent = `0:00`;

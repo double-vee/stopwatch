@@ -90,6 +90,27 @@ pauseBtn.addEventListener('click', () => {
   }
 });
 
+nextBtn.addEventListener('click', () => {
+  clearInterval(createTimer);
+  previousTimeContainer.textContent = timeContainer.textContent;
+  timeContainer.textContent = `0:00`;
+  previousTimeContainer.hidden = false;
+
+  startTime = Date.now();
+  createTimer = setInterval(function() {
+    time = Date.now() - startTime;
+    seconds = Math.floor(time / 1000);
+    formatTime();
+  }, 1000);
+
+  if(!pauseBtn.classList.contains("role-pause")) {
+    pauseBtn.classList.add("role-pause");
+  }
+});
+
+
+
+
 
 
 

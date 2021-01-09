@@ -108,6 +108,25 @@ nextBtn.addEventListener('click', () => {
   }
 });
 
+resetBtn.addEventListener('click', () => {
+  clearInterval(createTimer);
+  timeContainer.textContent = `0:00`;
+  previousTimeContainer.textContent = `0:00`;
+  sessionStorage.removeItem("seconds_paused");
+  startBtn.disabled = false;
+  pauseBtn.disabled = true;
+  nextBtn.disabled = true;
+  stopBtn.hidden = true;
+  saveBtn.hidden = true;
+  previousTimeContainer.hidden = true;
+
+  if(!pauseBtn.classList.contains("role-pause")) {
+    pauseBtn.classList.add("role-pause");
+  }
+});
+
+
+
 
 
 

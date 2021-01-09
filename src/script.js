@@ -22,14 +22,28 @@ let time;
 let seconds;
 
 startBtn.addEventListener('click', () => {
-  startTime = Date.now();
-  createTimer = setInterval(function() {
+  if(sessionStorage.getItem("seconds_paused")) {
+    // RESUME
+    startTime = Date.now();
+    createTimer = setInterval(function() {
+      time = Date.now() - startTime;
+      seconds = Math.floor(time / 1000) + Number(sessionStorage.getItem("seconds_paused"));
+      console.log(time, seconds);
+
+      formatTime();
+    }, 1000);
+
+    pauseBtn.classList.add("role-pause");
+  } else {
+    startTime = Date.now();
+    createTimer = setInterval(function() {
     time = Date.now() - startTime;
     seconds = Math.floor(time / 1000);
     console.log(time, seconds);
 
     formatTime();
-  }, 1000);
+    }, 1000);
+  }
   
   startBtn.disabled = true;
   pauseBtn.disabled = false;
@@ -46,6 +60,7 @@ function formatTime() {
 
 stopBtn.addEventListener('click', () => {
   clearInterval(createTimer);
+  sessionStorage.removeItem("seconds_paused");
   saveBtn.hidden = false;
   startBtn.disabled = true;
   pauseBtn.disabled = true;
@@ -59,8 +74,25 @@ pauseBtn.addEventListener('click', () => {
 
     pauseBtn.classList.remove("role-pause");
     startBtn.disabled = false;
+  } else {
+    // RESUME
+    startTime = Date.now();
+    createTimer = setInterval(function() {
+      time = Date.now() - startTime;
+      seconds = Math.floor(time / 1000) + Number(sessionStorage.getItem("seconds_paused"));
+      console.log(time, seconds);
+
+      formatTime();
+    }, 1000);
+
+    startBtn.disabled = true;
+    pauseBtn.classList.add("role-pause");
   }
 });
+
+
+
+
 
 
 

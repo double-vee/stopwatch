@@ -112,6 +112,8 @@ saveBtn.addEventListener('click', () => {
   let previousResult;
   let nextResult;
   let result;
+
+  const resultHTML = document.createElement("article");
   
   if(previousTimeContainer.textContent !== `0:00`) {
     previousResult = prompt("1st result entry name:");
@@ -121,8 +123,26 @@ saveBtn.addEventListener('click', () => {
     localStorage.setItem(nextResult, timeContainer.textContent);
   } else {
     result = prompt("Result entry name:");
+    let entryName = result;
     localStorage.setItem(result, timeContainer.textContent);
+
+    resultHTML.innerHTML = `
+    <h3 class="result-name text-l font-bold font-sans text-indigo-600">${entryName}:</h3>
+    <p class="result-time text-l font-bold font-sans text-indigo-600 hidden">${localStorage.getItem(result)}</p>`;
+
+    resultsContainer.append(resultHTML);
   }
+
+  // WIP
+  const resultName = document.querySelectorAll(".result-name");
+  console.log(resultName);
+
+  resultName.forEach(function(element) {
+    element.addEventListener("click", event => {
+      event.target.nextElementSibling.classList.toggle("hidden");
+    });  
+  });
+  // WIP
 
   timeContainer.textContent = `0:00`;
   previousTimeContainer.textContent = `0:00`;

@@ -52,3 +52,15 @@ stopBtn.addEventListener('click', () => {
   nextBtn.disabled = true;
 });
 
+pauseBtn.addEventListener('click', () => {
+  if(createTimer && pauseBtn.classList.contains("role-pause")) {
+    clearInterval(createTimer);
+    sessionStorage.setItem("seconds_paused", seconds);
+
+    pauseBtn.classList.remove("role-pause");
+    startBtn.disabled = false;
+  }
+});
+
+
+

@@ -43,3 +43,12 @@ function formatTime() {
 
   return timeContainer.textContent = `${min < 10 ? "0" + min : min}:${sec < 10 ? "0" + sec : sec}`;
 }
+
+stopBtn.addEventListener('click', () => {
+  clearInterval(createTimer);
+  saveBtn.hidden = false;
+  startBtn.disabled = true;
+  pauseBtn.disabled = true;
+  nextBtn.disabled = true;
+});
+

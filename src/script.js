@@ -109,35 +109,58 @@ nextBtn.addEventListener('click', () => {
 });
 
 saveBtn.addEventListener('click', () => {
-  let previousResult;
-  let nextResult;
-  let result;
+  let resultKey;
 
   const resultHTML = document.createElement("article");
   
-  if(previousTimeContainer.textContent !== `0:00`) {
-    previousResult = prompt("1st result entry name:");
-    localStorage.setItem(previousResult, previousTimeContainer.textContent);
+  if(previousTimeContainer.hidden === false) {
+    resultKey = prompt("Results entry name:");
 
-    nextResult = prompt("2nd result entry name:");
-    localStorage.setItem(nextResult, timeContainer.textContent);
-  } else {
-    result = prompt("Result entry name:");
-    let entryName = result;
-    localStorage.setItem(result, timeContainer.textContent);
+    let stringifiedResult = JSON.stringify({
+      time_1: previousTimeContainer.textContent,
+      time_2: timeContainer.textContent
+    });
+
+    localStorage.setItem(resultKey, stringifiedResult);
+
+    let resultObject = JSON.parse(localStorage.getItem(resultKey));
 
     resultHTML.innerHTML = `
-    <h3 class="result-name text-l font-bold font-sans text-indigo-600">${entryName}:</h3>
-    <p class="result-time text-l font-bold font-sans text-indigo-600 hidden">${localStorage.getItem(result)}</p>`;
+    <h3 class="result-name text-l font-bold font-sans text-indigo-600 mt-2">${resultKey}:</h3>
+    <div class="hidden">
+      <p class="result-time text-l font-bold font-sans text-indigo-600">${resultObject.time_1}</p>
+      <p class="result-time text-l font-bold font-sans text-indigo-600">${resultObject.time_2}</p>
+    </div>
+    `;
+
+    resultsContainer.append(resultHTML);
+  } else {
+
+    resultKey = prompt("Result entry name:");
+
+    let stringifiedResult = JSON.stringify({
+      time: timeContainer.textContent
+    });
+
+    localStorage.setItem(resultKey, stringifiedResult);
+
+    let resultObject = JSON.parse(localStorage.getItem(resultKey));
+
+    resultHTML.innerHTML = `
+    <h3 class="result-name text-l font-bold font-sans text-indigo-600 mt-2">${resultKey}:</h3>
+    <div class="hidden">
+      <p class="result-time text-l font-bold font-sans text-indigo-600">${resultObject.time}</p>
+    </div>
+    `;
 
     resultsContainer.append(resultHTML);
   }
 
   // WIP
-  const resultName = document.querySelectorAll(".result-name");
-  console.log(resultName);
+  const resultNameContainers = document.querySelectorAll(".result-name");
+  console.log(resultNameContainers);
 
-  resultName.forEach(function(element) {
+  resultNameContainers.forEach(function(element) {
     element.addEventListener("click", event => {
       event.target.nextElementSibling.classList.toggle("hidden");
     });  
@@ -175,15 +198,3 @@ resetBtn.addEventListener('click', () => {
     pauseBtn.classList.add("role-pause");
   }
 });
-
-
-
-
-
-
-
-
-
-
-
-
